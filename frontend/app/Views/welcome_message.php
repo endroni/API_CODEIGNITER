@@ -195,6 +195,8 @@
 </head>
 <body>
 
+<h1>Front-end</h1>
+
 <!-- HEADER: MENU + HEROE SECTION -->
 <header>
 
