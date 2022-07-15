@@ -95,6 +95,22 @@ class Livros extends BaseController
         return $this->respond($dados, 200);
     }
 
+    public function getBuscar($query){
+        
+        $request = \Config\Services::request();
+        $titulo = $request->getVar('titulo');
+        // $titulo = $_GET['titulo'];
+
+        $busca = ['titulo'=>$titulo];
+
+        $livrosModel = new LivrosModel();
+
+        $dados = $livrosModel   
+                    ->like($busca)
+                    ->findAll();
+        return $this->respond($dados, 200);
+    }
+
     public function getInserir_teste2(){
         $livrosModel = new LivrosModel();
 
