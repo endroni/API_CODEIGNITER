@@ -97,18 +97,42 @@ class Livros extends BaseController
 
     public function getBuscar($query){
         
-        $request = \Config\Services::request();
-        $titulo = $request->getVar('titulo');
-        // $titulo = $_GET['titulo'];
+        /*
+            * Realizando busca por: 
+            * título, autor, isbn ou período (ano_inicio e ano_fim)
+            * Exemplo: http://localhost:8080/livros/buscar/
+            * query?itens_por_pagina=10 & titulo=sociedade do anel
+            * & isbn=123 & autor=tolkien & ano_inicio=200 & ano_fim=2020
+        */
+        
+        header('Access-Control-Allow-Origin: *');
 
-        $busca = ['titulo'=>$titulo];
+        // paginação
+        $itens = isset($_GET['itens_por_pagina'])?$_GET['itens_por_pagina']:10;
+        $pagina = isset($_GET['pagina'])?$_GET['pagina']:1;
+
+        // busca por título, autor e isbn
+        $titulo = isset($_GET['titulo'])?$_GET['titulo']:'';
+        $autor = isset($_GET['autor'])?$_GET['autor']:'';
+        $isbn = isset($_GET['isbn'])?$_GET['isbn']:'';
+
+        // período
+        $ano_inicio = isset($_GET['ano_inicio'])?$_GET['ano_inicio']:0;
+        $ano_fim = isset($_GET['ano_fim'])?$_GET['ano_fim']:date('Y');
+
+        // cláusulas where
+        $periodo = ['ano >='=>$ano_inicio, 'ano <='=>$ano_fim];
+        $busca = ['titulo'=>$titulo, 'autor'=>$autor, 'isbn'=>$isbn];
 
         $livrosModel = new LivrosModel();
 
         $dados = $livrosModel   
+                    ->where($periodo)
                     ->like($busca)
-                    ->findAll();
+                    ->findAll($itens, $pagina*$itens-$itens);
+
         return $this->respond($dados, 200);
+
     }
 
     public function getInserir_teste2(){
