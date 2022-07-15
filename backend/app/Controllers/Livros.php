@@ -74,13 +74,22 @@ class Livros extends BaseController
         echo 'API de consulta de livros';
     }
 
-    public function getListar($paginacao = 0){
+    public function getListar($paginacao = 1, $ordem = 'asc'){
+
+         /*
+            * Lista todos os livros 
+            * Uso: /listar/[página]/[ordem]/
+            * Exemplo: /listar/1/desc
+            * Exemplificação: Retorna o último item
+        */
 
         header('Access-Control-Allow-Origin: *'); // Restrição de segurança(evitar invasão) - diretriz que me permite acessar os dados na própria máquina. 
 
         $livrosModel = new LivrosModel();
         $itens = 10;
-        $dados = $livrosModel->findAll($itens, $paginacao * $itens - $itens);
+        $dados = $livrosModel
+                    ->orderBy('id', $ordem)
+                    ->findAll($itens, $paginacao * $itens - $itens);
 
         //dd($dados); // Retorna os dados em formato de array
         return $this->respond($dados, 200); // Retorna os dados em forma de Jason. Obs. Precisa da biblioteca ResponseTrait para utilizar o método respond
@@ -104,7 +113,7 @@ class Livros extends BaseController
             * query?itens_por_pagina=10 & titulo=sociedade do anel
             * & isbn=123 & autor=tolkien & ano_inicio=200 & ano_fim=2020
         */
-        
+
         header('Access-Control-Allow-Origin: *');
 
         // paginação
