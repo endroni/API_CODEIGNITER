@@ -72,7 +72,11 @@ class Livros extends BaseController
     }
 
     public function getListar(){
-        echo 'Listando todos os livros';
+        $livrosModel = new LivrosMOdel();
+
+        $dados = $livrosModel->findAll();
+
+        dd($dados);
     }
 
     public function getInserir_teste2(){
