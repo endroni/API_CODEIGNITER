@@ -86,6 +86,15 @@ class Livros extends BaseController
         return $this->respond($dados, 200); // Retorna os dados em forma de Jason. Obs. Precisa da biblioteca ResponseTrait para utilizar o método respond
     }
 
+    public function getLivro($id){
+        header('Access-Control-Allow-Origin: *');
+
+        $livrosModel = new LivrosModel();
+        $dados = $livrosModel->find($id);
+
+        return $this->respond($dados, 200);
+    }
+
     public function getInserir_teste2(){
         $livrosModel = new LivrosModel();
 
