@@ -4,9 +4,12 @@ namespace App\Controllers;
 
 use App\Models\LivrosModel;
 use CodeIgniter\I18n\Time;
+use CodeIgniter\API\ResponseTrait;
 
 class Livros extends BaseController
 {
+    use ResponseTrait;
+
     public function getPovoar_banco(){
         
         // Função responsável por povoar os dados de dados SQLite
@@ -71,12 +74,16 @@ class Livros extends BaseController
         echo 'API de consulta de livros';
     }
 
-    public function getListar(){
-        $livrosModel = new LivrosMOdel();
+    public function getListar($paginacao = 0){
 
-        $dados = $livrosModel->findAll();
+        header('Access-Control-Allow-Origin: *'); // Restrição de segurança(evitar invasão) - diretriz que me permite acessar os dados na própria máquina. 
 
-        dd($dados);
+        $livrosModel = new LivrosModel();
+        $itens = 10;
+        $dados = $livrosModel->findAll($itens, $paginacao * $itens - $itens);
+
+        //dd($dados); // Retorna os dados em formato de array
+        return $this->respond($dados, 200); // Retorna os dados em forma de Jason. Obs. Precisa da biblioteca ResponseTrait para utilizar o método respond
     }
 
     public function getInserir_teste2(){
