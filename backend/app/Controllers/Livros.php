@@ -27,6 +27,7 @@ class Livros extends BaseController
         $paginas = $request->getVar('paginas');
         $ano = $request->getVar('ano');
 
+        // Grava dados no banco de dados        
         $livrosModel = new LivrosModel();
 
         $livrosModel->save([
@@ -39,6 +40,22 @@ class Livros extends BaseController
 
         $this->respondCreated($livrosModel->getInsertID());
 
+    }
+
+    public function postDeletar(){
+        /* Deleta uma linha no banco de dados de acordo com o id passado via request post */
+
+        # $id = $_POST['id'];
+
+        $request = \Config\Services::request();
+
+        $id = $request->getVar('id');
+
+        $livrosModel = new LivrosModel();
+        
+        $livrosModel->delete(['id'=>$id]);
+
+        $this->respondDeleted($id);
     }
 
     public function getPovoar_banco(){
