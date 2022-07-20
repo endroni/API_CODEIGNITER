@@ -58,6 +58,45 @@ class Livros extends BaseController
         $this->respondDeleted($id);
     }
 
+    public function postEditar(){
+        /*
+        * Atualiza um item do banco de dados
+        * Requer o id
+        * Opcional: titulo, autor, isbn, paginas, ano
+        */
+
+        $request = \Config\Services::request();
+        $id = $request->getVar('id');
+
+        $livrosModel = new LivrosModel();
+
+        $dados_antigos = $livrosModel->find($id);
+
+        if($dados_antigos['id'] != $id){
+            exit();
+        }
+
+        $titulo = $request->getVar('titulo');
+        $autor = $request->getVar('autor');
+        $isbn = $request->getVar('isbn');
+        $paginas = $request->getVar('paginas');
+        $ano = $request->getVar('ano');
+
+        $dados = [
+            'titulo'=>$titulo,
+            'autor'=>$autor,
+            'isbn'=>$isbn,
+            'paginas'=>$paginas,
+            'ano'=>$ano
+        ];
+
+        $livrosModel->update($id, $dados);
+
+        $this->respond($dados, 200);
+
+        # dd($dados_antigos); // Para testes
+    }
+
     public function getPovoar_banco(){
         
         // Função responsável por povoar os dados de dados SQLite
