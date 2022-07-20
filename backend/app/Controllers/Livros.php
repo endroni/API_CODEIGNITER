@@ -10,6 +10,35 @@ class Livros extends BaseController
 {
     use ResponseTrait;
 
+    public function postInserir(){
+        /*
+        * Insere um item no banco de dados
+        * Requer:
+        * titulo, autor, isbn, paginas, ano
+        */
+        
+        header('Access-Control-Allow-Origin: *');
+
+        $titulo = $_POST['titulo'];
+        $autor = $_POST['autor'];
+        $isbn = $_POST['isbn'];
+        $paginas = $_POST['paginas'];
+        $ano = $_POST['ano'];
+
+        $livrosModel = new LivrosModel();
+
+        $livrosModel->save([
+            'titulo'=>$titulo,
+            'autor'=>$autor,
+            'isbn'=>$isbn,
+            'paginas'=>$paginas,
+            'ano'=>$ano
+        ]);
+
+        $this->respondCreated($livrosModel->getInsertID());
+
+    }
+
     public function getPovoar_banco(){
         
         // Função responsável por povoar os dados de dados SQLite
@@ -175,5 +204,10 @@ class Livros extends BaseController
         // print_r($livrosModel->findAll());
         dd($livrosModel->findAll());
     }
+
+    public function getPagina(){
+            echo 'qualquer coisa';
+        }
+
 
 }
