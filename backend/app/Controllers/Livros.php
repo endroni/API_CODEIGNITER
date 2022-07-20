@@ -17,13 +17,15 @@ class Livros extends BaseController
         * titulo, autor, isbn, paginas, ano
         */
         
+        $request = \Config\Services::request();
+
         header('Access-Control-Allow-Origin: *');
 
-        $titulo = $_POST['titulo'];
-        $autor = $_POST['autor'];
-        $isbn = $_POST['isbn'];
-        $paginas = $_POST['paginas'];
-        $ano = $_POST['ano'];
+        $titulo = $request->getVar('titulo');
+        $autor = $request->getVar('autor');
+        $isbn = $request->getVar('isbn');
+        $paginas = $request->getVar('paginas');
+        $ano = $request->getVar('ano');
 
         $livrosModel = new LivrosModel();
 
