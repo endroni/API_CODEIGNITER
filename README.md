@@ -5,6 +5,16 @@
 
     php spark serve
 
+## Ao atualizar seu repositório substitua o composer install por 
+    composer update
+
+## Dependendo do tipo de instalação ou distribuição do PHP, você irá precisar descomentar linhas de extensões no arquivo php.ini:
+    extension=curl
+    extension=intl
+
+## Para o banco de dados SQLite3, você também irá precisar descomentar linhas no arquivo php.ini:
+    extension=pdo_sqlite
+    extension=sqlite3
 
 ## Ativando roteamento automático:
 Em “app/Config/Routes.php”, adicione a seguinte linha de código:

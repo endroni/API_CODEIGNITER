@@ -7,13 +7,13 @@
 
     <form method="post" action="<?= base_url('/inserir') ?>" >
         
-    <input type="text" name="titulo" placeholder="T√≠tulo" class="form-control">
+    <input type="text" name="titulo" placeholder="Título" class="form-control">
 
     <input type="text" name="autor" placeholder="Autor" class="form-control my-2">
 
         <input type="number" name="isbn" placeholder="ISBN" class="form-control my-2">
         
-        <input type="number" name="paginas" placeholder="N√∫mero de p√°ginas" class="form-control my-2">
+        <input type="number" name="paginas" placeholder="Número de páginas" class="form-control my-2">
 
         <input type="number" name="ano" placeholder="ano" class="form-control my-2">
         

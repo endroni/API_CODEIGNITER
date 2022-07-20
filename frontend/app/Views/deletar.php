@@ -9,7 +9,7 @@
     <form action="<?= base_url('/deletar') ?>" method="post">
         <input type="hidden" value="<?= $id ?>" name="id" id="id">
     <input type="submit" value="Sim" class="btn btn-danger btn-lg">
-        <a href="<?= base_url('/') ?>" class="btn btn-secondary btn-lg">N√£o</a>
+        <a href="<?= base_url('/') ?>" class="btn btn-secondary btn-lg">Não</a>
     </form>
  </div>
 <?= $this->endSection() ?>
